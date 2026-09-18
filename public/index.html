@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamsa Market - مجوهرات وحلي فاخرة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الهيدر العلوي وشريط العنوان -->
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="logo">Lamsa Market</h1>
+            <p class="tagline">تشكيلة فاخرة من أجود قطع الحلي والمجوهرات الراقية</p>
+        </div>
+    </header>
+
+    <!-- قسم عرض المنتجات المجمعة -->
+    <main id="products" class="container">
+        <div class="section-header">
+            <h2 class="section-title">التشكيلة المختارة</h2>
+            <p class="section-desc">اضغط على أي قطعة لطلبها مباشرة عبر الواتساب</p>
+        </div>
+
+        <!-- تحميل الأقسام والمنتجات تلقائياً -->
+        <div id="products-container"></div>
+    </main>
+
+    <!-- قسم المميزات والتوصيل -->
+    <section class="bottom-features">
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>توصيل لجميع الولايات</h3>
+                <p>نوفر خدمة التوصيل السريع والآمن إلى كافة الولايات والمناطق مباشرة لباب منزلكم.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>توصيل آمن وضمان</h3>
+                <p>تُشحن جميع الطلبيات داخل أظرفة وعُلب مخصصة ومؤمنة لضمان وصولها بحالة ممتازة.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>تغليف فاخر</h3>
+                <p>تصلكم المنتجات في علب وأكياس إهداء فاخرة تناسب كافة مناسباتكم السعيدة.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <h3>خدمة الزبائن</h3>
+                <p>فريقنا متواجد ومستعد دائماً للرد على جميع استفساراتكم ومتابعة طلباتكم أولاً بأول.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر السفلي للحقوق -->
+    <footer class="main-footer">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Lamsa Market</p>
+    </footer>
+
+    <!-- النافذة المنبثقة للتكبير والطلب -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-box-content">
+            <img class="modal-content" id="modalImage" alt="تكبير القطعة">
+            <h3 id="modalCaption"></h3>
+            <a id="modalWhatsappBtn" href="#" target="_blank" class="whatsapp-order-btn">
+                💬 اطلب هذه القطعة عبر الواتساب
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
