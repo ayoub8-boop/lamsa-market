@@ -11,15 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const categoryOrder = ['طقم', 'سلسلة', 'براسلي', 'جورمات', 'منقوش'];
 
-    // التعديل في ملف public/script.js
-
-function createWhatsappLink(categoryName, imageUrl) {
-    // الحصول على الرابط الكامل للصورة على موقعك المباشر
-    const fullImageUrl = window.location.origin + imageUrl;
-    
-    const textMessage = `مرحباً Lamsa Market ✨، أريد طلب هذه القطعة:%0A- النوع: ${encodeURIComponent(categoryName)}%0A- رابط الصورة: ${encodeURIComponent(fullImageUrl)}`;
-    return `https://wa.me/${myWhatsappNumber}?text=${textMessage}`;
-}
+    // دالة إنشاء رابط الواتساب مضافاً إليها رابط الصورة المباشر
+    function createWhatsappLink(categoryName, imageUrl) {
+        const fullImageUrl = window.location.origin + imageUrl;
+        const textMessage = `مرحباً Lamsa Market ✨، أريد طلب هذه القطعة:%0A- النوع: ${encodeURIComponent(categoryName)}%0A- رابط الصورة: ${encodeURIComponent(fullImageUrl)}`;
+        return `https://wa.me/${myWhatsappNumber}?text=${textMessage}`;
+    }
 
     function renderGroupedProducts(products) {
         if (!container) return;
@@ -32,7 +29,6 @@ function createWhatsappLink(categoryName, imageUrl) {
 
         const grouped = {};
         products.forEach(p => {
-            // التعامل مع اختلاف أسماء الأعمدة (image_url أو image)
             p.image = p.image || p.image_url;
             const cat = p.category || p.name || 'طقم';
             if (!grouped[cat]) grouped[cat] = [];
@@ -61,7 +57,8 @@ function createWhatsappLink(categoryName, imageUrl) {
                 const card = document.createElement('div');
                 card.classList.add('product-card');
 
-                const waLink = createWhatsappLink(category);
+                // تمرير رابط الصورة هنا إلى الدالة
+                const waLink = createWhatsappLink(category, product.image);
 
                 card.innerHTML = `
                     <div class="image-wrapper">
@@ -78,7 +75,7 @@ function createWhatsappLink(categoryName, imageUrl) {
                     </div>
                 `;
 
-                // عند فتح النافذة المنبثقة للطلب وتكبير الصورة
+                // عند فتح النافذة المنبثقة للتكبير والطلب
                 const imageWrapper = card.querySelector('.image-wrapper');
                 imageWrapper.addEventListener('click', () => {
                     if (modal && modalImg && captionText) {
@@ -97,12 +94,12 @@ function createWhatsappLink(categoryName, imageUrl) {
         });
     }
 
-    // استدعاء البيانات وتمريرها فوراً لدالة العرض
+    // استدعاء البيانات
     fetch('/api/products')
         .then(response => response.json())
         .then(products => {
             console.log('Products received:', products);
-            renderGroupedProducts(products); // <-- هذا هو السطر الذي كان مفقوداً!
+            renderGroupedProducts(products);
         })
         .catch(error => {
             console.error('Error fetching products:', error);
