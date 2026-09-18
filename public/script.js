@@ -11,10 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const categoryOrder = ['طقم', 'سلسلة', 'براسلي', 'جورمات', 'منقوش'];
 
-    function createWhatsappLink(categoryName) {
-        const textMessage = `مرحباً Lamsa Market ✨، أريد طلب هذه القطعة:%0A- نوع القطعة: ${encodeURIComponent(categoryName)}`;
-        return `https://wa.me/${myWhatsappNumber}?text=${textMessage}`;
-    }
+    // التعديل في ملف public/script.js
+
+function createWhatsappLink(categoryName, imageUrl) {
+    // الحصول على الرابط الكامل للصورة على موقعك المباشر
+    const fullImageUrl = window.location.origin + imageUrl;
+    
+    const textMessage = `مرحباً Lamsa Market ✨، أريد طلب هذه القطعة:%0A- النوع: ${encodeURIComponent(categoryName)}%0A- رابط الصورة: ${encodeURIComponent(fullImageUrl)}`;
+    return `https://wa.me/${myWhatsappNumber}?text=${textMessage}`;
+}
 
     function renderGroupedProducts(products) {
         if (!container) return;
