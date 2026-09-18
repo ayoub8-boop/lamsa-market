@@ -10,12 +10,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // إعداد الاتصال بقاعدة البيانات السحابية (Aiven)
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: process.env.DB_HOST || 'mysql-4b9747-benabbouayoub8-f219.i.aivencloud.com',
+    user: process.env.DB_USER || 'avnadmin',
+    password: process.env.DB_PASSWORD || 'AVNS_qJxYTQYsHT2lz5hKji-',
+    database: process.env.DB_NAME || 'defaultdb',
     port: process.env.DB_PORT || 28125,
-    ssl: { rejectUnauthorized: false } // تفعيل SSL للاتصال بـ Aiven
+    ssl: { rejectUnauthorized: false }
 });
 
 db.connect((err) => {
