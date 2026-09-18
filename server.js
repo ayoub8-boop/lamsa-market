@@ -6,13 +6,12 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
-
+app.use(express.static(path.join(__dirname, 'public')));
 // إعداد الاتصال بقاعدة البيانات
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '', // غير كلمة السر إذا كانت موجودة لديك
+    password: 'ayoub2006', // غير كلمة السر إذا كانت موجودة لديك
     database: 'lamsa_market'
 });
 
