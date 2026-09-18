@@ -7,12 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-// إعداد الاتصال بقاعدة البيانات
+
+// إعداد الاتصال بقاعدة البيانات السحابية (Aiven)
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'ayoub2006', // غير كلمة السر إذا كانت موجودة لديك
-    database: 'lamsa_market'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 28125,
+    ssl: { rejectUnauthorized: false } // تفعيل SSL للاتصال بـ Aiven
 });
 
 db.connect((err) => {
@@ -43,7 +46,6 @@ function initDB() {
             return;
         }
         
-        // التحقق مما إذا كانت هناك منتجات مسجلة بالفعل
         db.query('SELECT COUNT(*) AS count FROM products', (err, results) => {
             if (err) return console.error(err);
             if (results[0].count === 0) {
@@ -70,7 +72,7 @@ function insertInitialProducts() {
 }
 
 // API لتزويد الواجهة الأمامية بالمنتجات
-app.get('/api/products', (query, res) => {
+app.get('/api/products', (req, res) => {
     db.query('SELECT * FROM products', (err, results) => {
         if (err) {
             res.status(500).json({ error: 'خطأ في جلب البيانات' });
@@ -80,7 +82,7 @@ app.get('/api/products', (query, res) => {
     });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`السيرفر يعمل على المنفذ: http://localhost:${PORT}`);
+    console.log(`السيرفر يعمل على المنفذ: ${PORT}`);
 });
