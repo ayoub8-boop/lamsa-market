@@ -326,14 +326,42 @@ body {
     padding: 1.5rem;
 }
 
+/* تنسيق الشاشات الصغيرة والهواتف */
 @media (max-width: 992px) {
-    .category-grid, .features-container {
+    .container, main#products {
+        padding: 1rem !important;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* منتجان في كل سطر للهواتف */
+        gap: 1rem !important;
+    }
+
+    .features-container {
         grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .image-wrapper {
+        height: 180px !important; /* تعديل ارتفاع الصورة ليتناسب مع شاشة الهاتف */
+    }
+
+    .product-info h3 {
+        font-size: 0.95rem;
+    }
+
+    .whatsapp-card-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem;
     }
 }
 
-@media (max-width: 576px) {
-    .category-grid, .features-container {
-        grid-template-columns: repeat(1, 1fr) !important;
+@media (max-width: 480px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* إبقاء منتجين في السطر حتى للشاشات الصغيرة جدًا */
+        gap: 0.8rem !important;
+    }
+
+    .image-wrapper {
+        height: 150px !important;
     }
 }
