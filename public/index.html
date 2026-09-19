@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamsa Market - مجوهرات وحلي فاخرة</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الهيدر العلوي وشريط العنوان -->
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="logo">Lamsa Market</h1>
+            <p class="tagline">تشكيلة فاخرة من أجود قطع الحلي والمجوهرات الراقية</p>
+        </div>
+    </header>
+
+    <!-- زر السلة العائم -->
+    <button id="cartButton" class="cart-float-btn">
+        🛒 <span id="cartCount">0</span>
+    </button>
+
+    <!-- قسم عرض المنتجات المجمعة -->
+    <main id="products" class="container">
+        <div class="section-header">
+            <h2 class="section-title">التشكيلة المختارة</h2>
+            <p class="section-desc">أضف القطع لسلتك أو اطلب مباشرة بضغطة زر</p>
+        </div>
+
+        <div id="products-container"></div>
+    </main>
+
+    <!-- قسم المميزات والتوصيل -->
+    <section class="bottom-features">
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>توصيل لجميع الولايات</h3>
+                <p>نوفر خدمة التوصيل السريع والآمن إلى كافة الولايات والمناطق مباشرة لباب منزلكم.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>توصيل آمن وضمان</h3>
+                <p>تُشحن جميع الطلبيات داخل أظرفة وعُلب مخصصة ومؤمنة لضمان وصولها بحالة ممتازة.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>تغليف فاخر</h3>
+                <p>تصلكم المنتجات في علب وأكياس إهداء فاخرة تناسب كافة مناسباتكم السعيدة.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <h3>خدمة الزبائن</h3>
+                <p>فريقنا متواجد ومستعد دائماً للرد على جميع استفساراتكم ومتابعة طلباتكم أولاً بأول.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر السفلي للحقوق -->
+    <footer class="main-footer">
+        <p>جميع الحقوق محفوظة &copy; 2026 - Lamsa Market</p>
+    </footer>
+
+    <!-- النافذة المنبثقة للتكبير -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-box-content">
+            <img class="modal-content" id="modalImage" alt="تكبير القطعة">
+            <h3 id="modalCaption"></h3>
+        </div>
+    </div>
+
+    <!-- السلة الجانبية -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <span id="closeCartBtn" class="close-cart">&times;</span>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-subtotal-row">
+                <span>المجموع:</span>
+                <span><span id="cartSubtotal">0</span> دج</span>
+            </div>
+            <button id="checkoutBtn" class="checkout-btn" disabled>إتمام الطلب</button>
+        </div>
+    </div>
+
+    <!-- نافذة الطلب السريع -->
+    <div id="orderModal" class="modal">
+        <span id="closeOrderModalBtn" class="close-modal">&times;</span>
+        <div class="modal-box-content order-modal-content">
+            <h3>إتمام الطلب</h3>
+
+            <div id="orderItemsSummary" class="order-items-summary"></div>
+
+            <div class="order-form-group">
+                <label for="wilayaSelect">الولاية</label>
+                <select id="wilayaSelect">
+                    <option value="">-- اختر الولاية --</option>
+                </select>
+            </div>
+
+            <div class="order-form-group delivery-type-group">
+                <label><input type="radio" name="deliveryType" value="stopDesk" checked> إلى المكتب (Stop Desk)</label>
+                <label><input type="radio" name="deliveryType" value="home"> إلى المنزل</label>
+            </div>
+
+            <div class="price-breakdown">
+                <div><span>مجموع القطع:</span><span><span id="orderSubtotal">0</span> دج</span></div>
+                <div><span>سعر التوصيل:</span><span><span id="orderShipping">—</span> دج</span></div>
+                <div class="total-row"><span>المجموع الكلي:</span><span><span id="orderTotal">0</span> دج</span></div>
+            </div>
+
+            <div class="order-form-group">
+                <label for="customerName">الاسم الكامل</label>
+                <input type="text" id="customerName" placeholder="مثال: أحمد محمد">
+            </div>
+
+            <div class="order-form-group">
+                <label for="customerPhone">رقم الهاتف</label>
+                <input type="tel" id="customerPhone" placeholder="مثال: 0661234567">
+            </div>
+
+            <p id="orderStatus" class="order-status"></p>
+
+            <button id="submitOrderBtn" class="submit-order-btn">✅ تأكيد الطلب</button>
+            <button id="whatsappFallbackBtn" class="whatsapp-fallback-btn">💬 أو أرسل عبر واتساب</button>
+        </div>
+    </div>
+
+    <script src="wilayas.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
