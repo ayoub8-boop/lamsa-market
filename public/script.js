@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const whatsappFallbackBtn = document.getElementById('whatsappFallbackBtn');
 
     const myWhatsappNumber = "213665677961";
-    const categoryOrder = ['طقم', 'سلسلة', 'براسلي', 'جورمات', 'منقوش'];
+    const categoryOrder = ['طقم', 'سلسلة', 'براسلي', 'جورمات', 'منقوش', 'خاتم'];
 
     // ===== حالة السلة (محفوظة في localStorage) =====
     let cart = JSON.parse(localStorage.getItem('lamsa_cart') || '[]');

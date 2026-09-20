@@ -278,5 +278,75 @@
     "category": "طقم",
     "price": 2600,
     "image": "/image/product_40.jpg"
+  },
+  {
+    "id": 41,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 700,
+    "image": "/image/product_41.jpg"
+  },
+  {
+    "id": 42,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 800,
+    "image": "/image/product_42.jpg"
+  },
+  {
+    "id": 43,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 900,
+    "image": "/image/product_43.jpg"
+  },
+  {
+    "id": 44,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_44.jpg"
+  },
+  {
+    "id": 45,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_45.jpg"
+  },
+  {
+    "id": 46,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_46.jpg"
+  },
+  {
+    "id": 47,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_47.jpg"
+  },
+  {
+    "id": 48,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_48.jpg"
+  },
+  {
+    "id": 49,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 400,
+    "image": "/image/product_49.jpg"
+  },
+  {
+    "id": 50,
+    "name": "خاتم",
+    "category": "خاتم",
+    "price": 900,
+    "image": "/image/product_50.jpg"
   }
 ]
