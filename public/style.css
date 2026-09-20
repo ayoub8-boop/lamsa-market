@@ -129,7 +129,7 @@ body {
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
     gap: 1.8rem;
     width: 100%;
 }
@@ -319,14 +319,64 @@ body {
 }
 
 @media (max-width: 992px) {
-    .category-grid, .features-container {
+    .features-container {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 
 @media (max-width: 576px) {
-    .category-grid, .features-container {
+    .features-container {
         grid-template-columns: repeat(1, 1fr) !important;
+    }
+
+    /* الأعمدة تتكيف تلقائياً (auto-fill) — هنا فقط نصغّر التباعد والعناصر */
+    .category-grid {
+        gap: 0.8rem;
+    }
+
+    .container, main#products {
+        padding: 1.2rem 0.8rem !important;
+    }
+
+    .category-section {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .image-wrapper {
+        height: 150px;
+    }
+
+    .product-info {
+        padding: 0.7rem;
+    }
+
+    .product-info h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .product-price {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-actions {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .add-cart-btn, .quick-order-btn {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.3rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .main-header .logo {
+        font-size: 2rem;
     }
 }
 
@@ -600,76 +650,6 @@ body {
     cursor: pointer;
 }
 
-/* --- Facebook Mobile Theme Integration --- */
-@media (max-width: 768px) {
-    /* الخلفية العامة باللون الرمادي الفاتح المعتاد في فيسبوك */
-    body {
-        background-color: #f0f2f5;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        color: #050505;
-    }
-
-    /* الشريط العلوي (Header) بنمط فيسبوك */
-    header, .navbar {
-        background-color: #ffffff;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        padding: 10px 15px;
-    }
-
-    /* بطاقة المنتج (Product Card) مثل منشورات فيسبوك */
-    .product-card, .quick-order-container {
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        margin: 10px 8px;
-        padding: 12px;
-        border: none;
-    }
-
-    /* حقول الإدخال (Inputs) بنمط فيسبوك المصمم للهواتف */
-    input[type="text"], input[type="tel"], select {
-        background-color: #f0f2f5;
-        border: 1px solid #ccd0d5;
-        border-radius: 6px;
-        padding: 12px;
-        font-size: 15px;
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-    }
-
-    input:focus, select:focus {
-        border-color: #1877f2;
-        outline: none;
-        background-color: #ffffff;
-    }
-
-    /* زر تأكيد الطلب المباشر باللون الأزرق المعتاد في فيسبوك */
-    .submit-order-btn, #submitOrderBtn {
-        background-color: #1877f2;
-        color: #ffffff;
-        font-weight: bold;
-        font-size: 16px;
-        border-radius: 6px;
-        padding: 12px;
-        border: none;
-        width: 100%;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .submit-order-btn:active {
-        background-color: #166fe5;
-    }
-
-    /* زر الواتساب الثانوي باللون الأخضر */
-    .whatsapp-btn {
-        background-color: #42b72a;
-        color: #ffffff;
-        border-radius: 6px;
-        font-weight: bold;
-    }
+@media (max-width: 576px) {
+    .cart-float-btn { bottom: 15px; left: 15px; padding: 0.7rem 1.1rem; }
 }
