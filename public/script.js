@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderStatusEl = document.getElementById('orderStatus');
     const whatsappFallbackBtn = document.getElementById('whatsappFallbackBtn');
 
+    // ===== عناصر فلترة الفئات =====
+    const categoryMenuBtn = document.getElementById('categoryMenuBtn');
+    const categoryMenuPanel = document.getElementById('categoryMenuPanel');
+    const closeCategoryMenuBtn = document.getElementById('closeCategoryMenuBtn');
+    const categoryMenuList = document.getElementById('categoryMenuList');
+
+    let allProducts = [];
+    let activeCategory = 'الكل';
+
     const myWhatsappNumber = "213665677961";
     const categoryOrder = ['طقم', 'سلسلة', 'براسلي', 'جورمات', 'منقوش', 'خاتم'];
 
@@ -263,13 +272,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         container.innerHTML = '';
 
-        if (!products || products.length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: #777; padding: 2rem;">لا توجد منتجات متوفرة حالياً.</p>';
+        const filtered = activeCategory === 'الكل'
+            ? products
+            : products.filter(p => (p.category || p.name) === activeCategory);
+
+        if (!filtered || filtered.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #777; padding: 2rem;">لا توجد منتجات في هذه الفئة حالياً.</p>';
             return;
         }
 
         const grouped = {};
-        products.forEach(p => {
+        filtered.forEach(p => {
             p.image = p.image || p.image_url;
             const cat = p.category || p.name || 'طقم';
             if (!grouped[cat]) grouped[cat] = [];
@@ -338,10 +351,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== قائمة فلترة الفئات =====
+    function buildCategoryMenu(products) {
+        if (!categoryMenuList) return;
+
+        const counts = {};
+        products.forEach(p => {
+            const cat = p.category || p.name || 'طقم';
+            counts[cat] = (counts[cat] || 0) + 1;
+        });
+
+        const items = [{ name: 'الكل', count: products.length }]
+            .concat(categoryOrder.filter(c => counts[c]).map(c => ({ name: c, count: counts[c] })));
+
+        categoryMenuList.innerHTML = items.map(it => `
+            <div class="category-menu-item ${it.name === activeCategory ? 'active' : ''}" data-category="${it.name}">
+                <span>${it.name}</span>
+                <span class="cat-count">${it.count}</span>
+            </div>
+        `).join('');
+    }
+
+    categoryMenuBtn?.addEventListener('click', () => {
+        categoryMenuPanel.classList.toggle('open');
+    });
+
+    closeCategoryMenuBtn?.addEventListener('click', () => {
+        categoryMenuPanel.classList.remove('open');
+    });
+
+    categoryMenuList?.addEventListener('click', (e) => {
+        const item = e.target.closest('.category-menu-item');
+        if (!item) return;
+        activeCategory = item.dataset.category;
+        renderGroupedProducts(allProducts);
+        buildCategoryMenu(allProducts);
+        categoryMenuPanel.classList.remove('open');
+        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (categoryMenuPanel.classList.contains('open') &&
+            !categoryMenuPanel.contains(e.target) &&
+            e.target !== categoryMenuBtn) {
+            categoryMenuPanel.classList.remove('open');
+        }
+    });
+
     fetch('/api/products')
         .then(response => response.json())
         .then(products => {
-            renderGroupedProducts(products);
+            allProducts = products;
+            renderGroupedProducts(allProducts);
+            buildCategoryMenu(allProducts);
         })
         .catch(error => {
             console.error('Error fetching products:', error);
