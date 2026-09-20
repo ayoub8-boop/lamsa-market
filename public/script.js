@@ -29,11 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderStatusEl = document.getElementById('orderStatus');
     const whatsappFallbackBtn = document.getElementById('whatsappFallbackBtn');
 
-    // ===== عناصر فلترة الفئات =====
-    const categoryMenuBtn = document.getElementById('categoryMenuBtn');
-    const categoryMenuPanel = document.getElementById('categoryMenuPanel');
-    const closeCategoryMenuBtn = document.getElementById('closeCategoryMenuBtn');
-    const categoryMenuList = document.getElementById('categoryMenuList');
+    // ===== شريط فلترة الفئات =====
+    const categoryBar = document.getElementById('categoryBar');
+
+    const CATEGORY_ICONS = {
+        'الكل': '🛍️',
+        'طقم': '👑',
+        'سلسلة': '⛓️',
+        'براسلي': '🔘',
+        'جورمات': '🔗',
+        'منقوش': '✨',
+        'خاتم': '💍'
+    };
 
     let allProducts = [];
     let activeCategory = 'الكل';
@@ -351,9 +358,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== قائمة فلترة الفئات =====
+    // ===== شريط فلترة الفئات =====
     function buildCategoryMenu(products) {
-        if (!categoryMenuList) return;
+        if (!categoryBar) return;
 
         const counts = {};
         products.forEach(p => {
@@ -364,38 +371,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const items = [{ name: 'الكل', count: products.length }]
             .concat(categoryOrder.filter(c => counts[c]).map(c => ({ name: c, count: counts[c] })));
 
-        categoryMenuList.innerHTML = items.map(it => `
-            <div class="category-menu-item ${it.name === activeCategory ? 'active' : ''}" data-category="${it.name}">
-                <span>${it.name}</span>
-                <span class="cat-count">${it.count}</span>
-            </div>
+        categoryBar.innerHTML = items.map(it => `
+            <button class="category-chip ${it.name === activeCategory ? 'active' : ''}" data-category="${it.name}">
+                <span class="chip-icon">${CATEGORY_ICONS[it.name] || '💎'}</span>
+                <span class="chip-name">${it.name}</span>
+                <span class="chip-count">${it.count}</span>
+            </button>
         `).join('');
     }
 
-    categoryMenuBtn?.addEventListener('click', () => {
-        categoryMenuPanel.classList.toggle('open');
-    });
-
-    closeCategoryMenuBtn?.addEventListener('click', () => {
-        categoryMenuPanel.classList.remove('open');
-    });
-
-    categoryMenuList?.addEventListener('click', (e) => {
-        const item = e.target.closest('.category-menu-item');
-        if (!item) return;
-        activeCategory = item.dataset.category;
+    categoryBar?.addEventListener('click', (e) => {
+        const chip = e.target.closest('.category-chip');
+        if (!chip) return;
+        activeCategory = chip.dataset.category;
         renderGroupedProducts(allProducts);
         buildCategoryMenu(allProducts);
-        categoryMenuPanel.classList.remove('open');
-        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (categoryMenuPanel.classList.contains('open') &&
-            !categoryMenuPanel.contains(e.target) &&
-            e.target !== categoryMenuBtn) {
-            categoryMenuPanel.classList.remove('open');
-        }
     });
 
     fetch('/api/products')
