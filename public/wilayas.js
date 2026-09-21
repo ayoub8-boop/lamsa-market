@@ -8,7 +8,8 @@ const ZONE_PRICING = {
     1: { stopDesk: 250,  home: 450,  label: "الجزائر العاصمة" },
     2: { stopDesk: 400,  home: 600,  label: "قريبة / الوسط والشرق والغرب" },
     3: { stopDesk: 600,  home: 900,  label: "الهضاب العليا والجنوب القريب" },
-    4: { stopDesk: 1200, home: 1200, label: "أقصى الجنوب" }
+    4: { stopDesk: 1200, home: 1200, label: "أقصى الجنوب" },
+    5: { stopDesk: 000,  home: 300,  label: "قريبة / الوسط والشرق والغرب" }
 };
 
 // قائمة الولايات الـ58 (بما فيها الولايات الجنوبية العشر الجديدة) مع رقم المنطقة
@@ -25,7 +26,7 @@ const WILAYAS = [
     { code: 10, name: "البويرة", zone: 2 },
     { code: 11, name: "تمنراست", zone: 4 },
     { code: 12, name: "تبسة", zone: 2 },
-    { code: 13, name: "تلمسان", zone: 2 },
+    { code: 13, name: "تلمسان", zone: 5 },
     { code: 14, name: "تيارت", zone: 2 },
     { code: 15, name: "تيزي وزو", zone: 2 },
     { code: 16, name: "الجزائر العاصمة", zone: 1 },
